@@ -7,27 +7,25 @@
   </div>
 </template>
 
-<script lang="js">
-export default {
-  name: "Types",
-  props:['xxx'],
-  data() {
-    return {
-      type: '-'
+<script lang="ts">
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator'; //引入Component装饰器，vue-property-decorator是第三方写的
+
+//好处1 文档自动提示更智能
+//好处2 你不能随便写 .toString()
+//好处3 编译报错，无法变成js，严谨
+@Component //告诉ts，这是vue的组件
+export default class Types extends Vue {
+  type = '-'; //‘-’表示支出，'+'表示收入
+
+  selectType(type: string) { //string是表示type是字符串类型
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unkonw');
     }
-  },
-  mounted(){
-    console.log(this.xxx)
-  },
-  methods: {
-    selectType(type) {
-      if (type !== '-' && type !== '+') {
-        throw new Error('type is unknow')
-      }
-      this.type = type
-    }
+    this.type = type;
   }
 }
+
 </script>
 
 <style scoped lang="scss">
